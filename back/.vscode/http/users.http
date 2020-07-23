@@ -1,0 +1,35 @@
+GET http://localhost:8181/users HTTP/1.1
+
+###
+GET http://localhost:8181/users/25e1b42f-42f5-4bc6-b69b-35b266359684 HTTP/1.1
+
+
+###
+POST http://localhost:8181/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "nom" : "Josselin",
+    "prenom" : "Marie",
+    "mail" : "mjosselin6@gmail.com",
+    "password" : "password1",
+    "avatar" : "https://avatars2.githubusercontent.com/u/61701345?s=400&u=c8614f42920e62a230db5ade3ff770bf293f68f2&v=4" 
+}
+
+###
+
+PUT http://localhost:8181/users/54c2e6f3-48ae-4457-99b2-93a8a4875a51 HTTP/1.1
+Content-Type: application/json
+
+{
+    "nom" : "Josselin",
+    "prenom" : "Marie",
+    "mail" : "mjosselin6@gmail.com",
+    "password" : "password1",
+    "avatar" : "https://avatars2.githubusercontent.com/u/61701345?s=400&u=c8614f42920e62a230db5ade3ff770bf293f68f2&v=4" 
+}
+
+###
+
+DELETE http://localhost:8181/projets/54c2e6f3-48ae-4457-99b2-93a8a4875a51 HTTP/1.1
+Content-Type: application/json

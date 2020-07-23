@@ -1,0 +1,7 @@
+.flexRow {
+  flex-direction: column;
+}
+
+.displayBlock {
+  display: inline-block;
+}

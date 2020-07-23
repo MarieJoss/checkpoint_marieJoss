@@ -1,0 +1,11 @@
+.bkgNavbar {
+  background-color: #303030;
+  width: 8%;
+  height: 100vh;
+  display: inline-block;
+}
+
+.AppLogo {
+  width: 50%;
+  margin: auto;
+}

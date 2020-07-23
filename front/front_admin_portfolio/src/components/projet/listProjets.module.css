@@ -1,0 +1,14 @@
+.flexRow {
+  flex-direction: column;
+}
+
+.buttonValider {
+  background-color: #303030 !important;
+  border-radius: 200px !important;
+}
+
+.buttonAnnuler {
+  background-color: inherit !important;
+  border: inherit !important;
+  color: #303030 !important;
+}

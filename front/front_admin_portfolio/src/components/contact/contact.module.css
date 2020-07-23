@@ -1,0 +1,11 @@
+.flexRow {
+  flex-direction: column;
+}
+.contactModif {
+  display: inline-block;
+  padding-left: 20px;
+}
+
+.bkgContactInfo {
+  background-color: #d2ad89;
+}
