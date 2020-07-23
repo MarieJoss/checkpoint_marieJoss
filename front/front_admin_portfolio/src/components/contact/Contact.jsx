@@ -42,7 +42,7 @@ export default function Contact() {
       <Row className="align-items-center ml-5">
         <Col xs="3">
           <h2>CONTACT</h2>
-          <Link to={`/settings/${userInfos.id}`}>
+          <Link to="/settings">
             <BsPencil size="20" fill="#d2ad89" />
             <h3 className={`${styles.contactModif} pt-3`}>Modifier</h3>
           </Link>

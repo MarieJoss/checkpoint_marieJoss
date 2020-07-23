@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navbar from "./navbar/Navbar";
-import InnerContact from "./contact/Contact";
+import Contact from "./contact/Contact";
 import ListProjets from "./projet/ListProjets";
 import InnerDashboard from "./dashboard/InnerDashboard";
 import InnerArticle from "./projet/InnerArticle";
@@ -14,8 +14,8 @@ export default function Router() {
       <Navbar />
       <Switch>
         <Route path="/modifier/:id" component={ModifProjet} />
-        <Route path="/settings/:id" component={ModifInfos} />
-        <Route path="/contact" component={InnerContact} />
+        <Route path="/settings/" component={ModifInfos} />
+        <Route path="/contact" component={Contact} />
         <Route path="/article" component={InnerArticle} />
         <Route path="/projets" component={ListProjets} />
         <Route exact path="/" component={InnerDashboard} />

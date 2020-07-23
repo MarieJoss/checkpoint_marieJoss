@@ -21,22 +21,22 @@ router.get("/", async (req, res) => {
 });
 
 //RECUPERER UN UTILISATEUR
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const users = await User.findAll({
-      attributes: {
-        exclude: ["password"],
-      },
-      include: {
-        model: Projet,
-      },
-    });
-    res.status(200).json(users);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const users = await User.findAll({
+//       attributes: {
+//         exclude: ["password"],
+//       },
+//       include: {
+//         model: Projet,
+//       },
+//     });
+//     res.status(200).json(users);
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// });
 
 //AJOUTER UN UTILISATEUR
 router.post("/", async (req, res) => {

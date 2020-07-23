@@ -74,6 +74,7 @@ export default function InnerArticle() {
     setLabel([]);
     setDescription("");
   };
+
   return (
     <Container fluid className={`ml-5 ${styles.flexRow}`}>
       <Row>
