@@ -5,17 +5,17 @@ import { Container, Row, Col } from "reactstrap";
 import styles from "./listProjets.module.css";
 import { Link } from "react-router-dom";
 
-import { IoMdClose } from "react-icons/io";
-
 import { BsPencil } from "react-icons/bs";
+import DeleteProject from "./DeleteProject";
+import Tag from "./Tag";
 
 function ListProjets() {
-  const [infosProjet, setInfosProjet] = useState([]);
+  const [projet, setProjet] = useState([]);
 
   const getInfosProjet = async () => {
     try {
       const res = await Axios.get("http://localhost:8181/projets");
-      setInfosProjet(res.data);
+      setProjet(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -24,17 +24,6 @@ function ListProjets() {
   useEffect(() => {
     getInfosProjet();
   }, []);
-
-  const deleteProjets = async () => {
-    try {
-      const item = infosProjet.find((item) => item.id);
-
-      await Axios.delete(`http://localhost:8181/projets/${item.id}`);
-      getInfosProjet();
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <Container fluid className={styles.flexRow}>
@@ -67,18 +56,21 @@ function ListProjets() {
                     </tr>
                   </thead>
                   <tbody>
-                    {infosProjet.map((info) => (
+                    {projet.map((info) => (
                       <tr>
                         <td>{info.titre}</td>
                         <td>{info.date}</td>
-                        <td>{info.Tag}</td>
+                        <Tag tagId={info.TagId} />
                         <td>
                           <Link to={`/modifier/${info.id}`}>
                             <BsPencil />
                           </Link>
                         </td>
                         <td>
-                          <IoMdClose onClick={deleteProjets} fill="#D2AD89" />
+                          <DeleteProject
+                            id={info.id}
+                            getInfosProjet={getInfosProjet}
+                          />
                         </td>
                       </tr>
                     ))}

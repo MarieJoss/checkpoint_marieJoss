@@ -3,21 +3,22 @@ import Axios from "axios";
 import styles from "../projet/ListProjets";
 
 import { Row, Container, Form, Col, Label, Input, Button } from "reactstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BsPencil } from "react-icons/bs";
 
 const ModifInfos = () => {
-  const { id } = useParams();
+  const [id, setId] = useState([]);
   const [nom, setNom] = useState([]);
   const [prenom, setPrenom] = useState([]);
-  const [email, setEmail] = useState([]);
+  const [mail, setMail] = useState([]);
 
   const getContactInfos = async () => {
     try {
       const res = await Axios.get("http://localhost:8181/users");
       setNom(res.data[0].nom);
       setPrenom(res.data[0].prenom);
-      setEmail(res.data[0].email);
+      setMail(res.data[0].mail);
+      setId(res.data[0].id);
     } catch (err) {
       console.log(err);
     }
@@ -33,7 +34,7 @@ const ModifInfos = () => {
       await Axios.put(`http://localhost:8181/users/${id}`, {
         nom,
         prenom,
-        email,
+        mail,
       });
     } catch (err) {
       console.log(err);
@@ -49,13 +50,13 @@ const ModifInfos = () => {
   };
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    setMail(e.target.value);
   };
 
   const resetForm = () => {
     setNom("");
     setPrenom("");
-    setEmail("");
+    setMail("");
   };
 
   return (
@@ -137,7 +138,7 @@ const ModifInfos = () => {
               name="email"
               required
               id="email"
-              value={email}
+              value={mail}
               onChange={handleEmailChange}
             />
           </Col>

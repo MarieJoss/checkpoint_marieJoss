@@ -15,7 +15,8 @@ import {
 export default function InnerArticle() {
   const [titre, setTitre] = useState("");
   const [date, setDate] = useState("");
-  const [TagId, setTagId] = useState("");
+  const [tags, setTags] = useState([]);
+  const [tagId, setTagId] = useState("");
   const [description, setDescription] = useState("");
   // const [couverture, setCouverture] = useState("");
   // const [image, setImage] = useState("");
@@ -23,24 +24,31 @@ export default function InnerArticle() {
   const getTag = async () => {
     try {
       const res = await Axios.get("http://localhost:8181/tags");
-      setTagId(res.data);
+      setTags(res.data);
     } catch (err) {
       console.log(err);
     }
   };
+  useEffect(() => {
+    getTag();
+  }, []);
 
-  const handleAddProjet = async (e) => {
-    e.preventDefault();
+  const handlePostProject = async () => {
     try {
       await Axios.post("http://localhost:8181/projets", {
         titre,
         date,
-        TagId,
+        TagId: tagId,
         description,
       });
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleAddProject = async (e) => {
+    e.preventDefault();
+    handlePostProject();
   };
 
   const handleTitleChange = (e) => {
@@ -56,19 +64,16 @@ export default function InnerArticle() {
   };
 
   const selectTag = (e) => {
-    const object = TagId.find((el) => el.label === e.target.value);
+    const object = tags.find((el) => el.label === e.target.value);
     setTagId(object.id);
   };
 
   const resetForm = () => {
     setTitre("");
     setDate("");
-    setTagId([]);
+    setTags([]);
     setDescription("");
   };
-  useEffect(() => {
-    getTag();
-  }, []);
 
   return (
     <Container fluid className={`ml-5 ${styles.flexRow}`}>
@@ -84,7 +89,7 @@ export default function InnerArticle() {
       </Row>
       <Row>
         <Col>
-          <Form onSubmit={handleAddProjet}>
+          <Form onSubmit={handleAddProject}>
             {/* <FormGroup row>
               <Col xs="3">
                 <Label for="exampleFile">Ta photo de couverture</Label>
@@ -143,9 +148,9 @@ export default function InnerArticle() {
                   <option value="defaultValue" disabled>
                     Selectionnez
                   </option>
-                  <option>React && NodeJS</option>
-                  <option>Wordpress</option>
-                  <option>Graphisme</option>
+                  {tags.map((tag) => (
+                    <option>{tag.label}</option>
+                  ))}
                 </Input>
               </Col>
             </FormGroup>
