@@ -15,20 +15,20 @@ import { useParams } from "react-router-dom";
 
 export default function InnerArticle() {
   const { id } = useParams();
-  const [titre, setTitre] = useState("");
-  const [date, setDate] = useState("");
+  const [titre, setTitre] = useState([]);
+  const [date, setDate] = useState([]);
   const [label, setLabel] = useState([]);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState([]);
   // const [couverture, setCouverture] = useState("");
   // const [image, setImage] = useState("");
 
   const getInfosProjet = async () => {
     try {
       const res = await Axios.get(`http://localhost:8181/projets/${id}`);
-      setTitre(res.data.titre);
-      setDate(res.data.date);
-      setLabel(res.data.label);
-      setDescription(res.data.description);
+      setTitre(res.data[0].titre);
+      setDate(res.data[0].date);
+      setLabel(res.data[0].label);
+      setDescription(res.data[0].description);
     } catch (err) {
       console.log(err);
     }
@@ -84,7 +84,7 @@ export default function InnerArticle() {
       </Row>
       <Row className="align-items-center my-5 ">
         <Col xs="6">
-          <h2>AJOUTER UN PROJET</h2>
+          <h2>MODIFIER MON PROJET</h2>
         </Col>
       </Row>
       <Row>
