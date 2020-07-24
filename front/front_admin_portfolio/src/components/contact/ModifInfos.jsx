@@ -4,19 +4,20 @@ import styles from "../projet/ListProjets";
 
 import { Row, Container, Form, Col, Label, Input, Button } from "reactstrap";
 import { Link, useParams } from "react-router-dom";
+import { BsPencil } from "react-icons/bs";
 
 const ModifInfos = () => {
   const { id } = useParams();
-  const [nom, setNom] = useState("");
-  const [prenom, setPrenom] = useState("");
-  const [email, setEmail] = useState("");
+  const [nom, setNom] = useState([]);
+  const [prenom, setPrenom] = useState([]);
+  const [email, setEmail] = useState([]);
 
   const getContactInfos = async () => {
     try {
-      const res = await Axios.get(`http://localhost:8181/users/${id}`);
-      setNom(res.data.nom);
-      setPrenom(res.data.prenom);
-      setEmail(res.data.email);
+      const res = await Axios.get("http://localhost:8181/users");
+      setNom(res.data[0].nom);
+      setPrenom(res.data[0].prenom);
+      setEmail(res.data[0].email);
     } catch (err) {
       console.log(err);
     }
@@ -59,8 +60,24 @@ const ModifInfos = () => {
 
   return (
     <Container>
+      <Row>
+        <Col>
+          <p className="text-right m-3">
+            Bonjour {prenom} {nom} !
+          </p>
+        </Col>
+      </Row>
+      <Row className="align-items-center ml-5">
+        <Col xs="3">
+          <h2>CONTACT</h2>
+          <Link to="/settings">
+            <BsPencil size="20" fill="#d2ad89" />
+            <h3 className={`${styles.contactModif} pt-3`}>Modifier</h3>
+          </Link>
+        </Col>
+      </Row>
       <Form onSubmit={handleModifyContact}>
-        {/* <Row>
+        <Row>
           <Col xs="3">
             <Label for="exampleFile">Ton avatar</Label>
           </Col>
@@ -69,11 +86,11 @@ const ModifInfos = () => {
               type="file"
               name="file"
               id="exampleFile"
-              value={userInfos.avatar}
+              // value={userInfos.avatar}
               //   onChange={handleAvatar}
             />
           </Col>
-        </Row> */}
+        </Row>
         <Row>
           <Col md={3}>
             <Label for="Nom" className="mt-3">
