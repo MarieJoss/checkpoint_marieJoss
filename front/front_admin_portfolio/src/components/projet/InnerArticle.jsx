@@ -79,10 +79,10 @@ export default function InnerArticle() {
   };
 
   const setToastSuccess = () => {
-    toast.success("Votre annonce a bien été publiée.", {
+    toast.success("🦄 WOw ton projet est bien publié", {
       position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
+      autoClose: 3000,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -91,10 +91,10 @@ export default function InnerArticle() {
   };
 
   const setToastError = () => {
-    toast.error("Une erreur est survenue, vous pouvez réessayer.", {
+    toast.error("🤦‍♀️ As-tu bien remplis tous les champs ?", {
       position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
+      autoClose: 3000,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -103,10 +103,10 @@ export default function InnerArticle() {
   };
 
   const setToastInput = () => {
-    toast.info("Renseignez tous les champs s'il vous plait", {
+    toast.info("Wow 😇", {
       position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
+      autoClose: 3000,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -143,7 +143,7 @@ export default function InnerArticle() {
         }
       );
       if (titre && tags && description) {
-        const postInfo = await Axios.post("http://localhost:8181/projets", {
+        await Axios.post("http://localhost:8181/projets", {
           titre,
           date,
           TagId: tagId,
