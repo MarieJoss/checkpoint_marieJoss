@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 
 import { BsPencil } from "react-icons/bs";
 import DeleteProject from "./DeleteProject";
-import Tag from "./Tag";
 
 function ListProjets() {
   const [projet, setProjet] = useState([]);
@@ -60,7 +59,7 @@ function ListProjets() {
                       <tr>
                         <td>{info.titre}</td>
                         <td>{info.date}</td>
-                        <Tag tagId={info.TagId} />
+                        <td>{info.Tag.label}</td>
                         <td>
                           <Link to={`/modifier/${info.id}`}>
                             <BsPencil />

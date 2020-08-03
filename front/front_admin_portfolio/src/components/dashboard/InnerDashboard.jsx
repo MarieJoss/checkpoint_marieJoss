@@ -1,33 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Table } from "reactstrap";
 import styles from "./dashboard.module.css";
 
 import { Pie } from "react-chartjs-2";
 import Axios from "axios";
 
-export default function NavTop() {
-  const [projets, setProjet] = useState([]);
+export default function Dashboard() {
   const [first, setFirst] = useState([]);
   const [second, setSecond] = useState([]);
   const [third, setThird] = useState([]);
-  const [tag, setTag] = useState([]);
+  const [projet, setProjet] = useState([]);
 
   const getInfosProjet = async () => {
     try {
       const res = await Axios.get("http://localhost:8181/projets");
-      setProjet(res.data);
-      setFirst(res.data);
-      setSecond(res.data);
-      setThird(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+      const firstTag = res.data.filter(
+        (item) => item.Tag.label === "React && NodeJS"
+      );
+      const secondTag = res.data.filter(
+        (item) => item.Tag.label === "Wordpress"
+      );
+      const thirdTag = res.data.filter(
+        (item) => item.Tag.label === "Graphisme"
+      );
 
-  const getTags = async () => {
-    try {
-      const res = await Axios.get("http://localhost:8181/tags");
-      setTag(res.data);
+      const length = res.data.length;
+
+      const item5 = res.data[length - 1];
+      const item4 = res.data[length - 2];
+      const item3 = res.data[length - 3];
+
+      const lastProjets = [item5, item4, item3];
+
+      setProjet(lastProjets);
+      setFirst(firstTag);
+      setSecond(secondTag);
+      setThird(thirdTag);
     } catch (err) {
       console.log(err);
     }
@@ -35,25 +43,7 @@ export default function NavTop() {
 
   useEffect(() => {
     getInfosProjet();
-    getTags();
   }, []);
-
-  // console.log(projets);
-  // console.log(tag);
-  // const projetFilter = projets.filter(
-  //   (item) => item.TagId === tag[0] && tag[0].id
-  // );
-  // console.log(projetFilter);
-
-  // const projetFilterUn = projets.filter(
-  //   (item) => item.TagId === tag[1] && tag[1].id
-  // );
-  // console.log(projetFilterUn);
-
-  // const projetFilterDeux = projets.filter(
-  //   (item) => item.TagId === tag[2] && tag[2].id
-  // );
-  // console.log(projetFilterDeux);
 
   return (
     <Container fluid className={styles.flexRow}>
@@ -62,9 +52,14 @@ export default function NavTop() {
           <p className="text-right m-3">Bonjour Marie Josselin</p>
         </Col>
       </Row>
-      <Row className="align-items-center ml-5">
-        <Col xs="3">
+      <Row className="align-items-center ml-5 mb-5">
+        <Col>
           <h2>DASHBOARD</h2>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="12" md="5">
+          <h2 className="text-center">Repartition par types</h2>
           <Pie
             data={{
               datasets: [
@@ -74,13 +69,30 @@ export default function NavTop() {
                   backgroundColor: ["#d2ad89", "#303030", "#466A5B"],
                 },
               ],
-              labels: [
-                tag[0] && tag[0].label,
-                tag[1] && tag[1].label,
-                tag[2] && tag[2].label,
-              ],
+              labels: ["React && NodeJS", "Wordpress", "Graphisme"],
             }}
           />
+        </Col>
+        <Col xs="12" md="6">
+          <h2 className="text-center">Mes derniers projets</h2>
+          <Table striped className="text-center">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Tag</th>
+              </tr>
+            </thead>
+            <tbody>
+              {projet.map((el) => (
+                <tr>
+                  <td>{el.titre}</td>
+                  <td>{el.date}</td>
+                  <td>{el.Tag.label}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </Col>
       </Row>
     </Container>
